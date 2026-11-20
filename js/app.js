@@ -83,7 +83,7 @@ function graficaLineas(series,labels,title){
   return `<g class="data-line-series" data-graph-line style="--line-color:${color}"><path class="data-line-path" pathLength="1" d="${points}"/>${circles}${dataLabels}</g>`;
  }).join("");
  const legend=visibles.length>1?`<g class="data-line-legend">${visibles.map((item,index)=>`<g transform="translate(${left+index*220},${height-16})"><circle r="4" cy="-4" style="fill:${index%2?"var(--oro-d)":"var(--azul)"}"/><text x="10">${htmlSeguro(item.name)}</text></g>`).join("")}</g>`:"";
- return `<div class="data-line-wrap"><svg class="data-line-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${htmlSeguro(title)}">${grids}<line class="data-line-axis" x1="${left}" y1="${bottom}" x2="${right}" y2="${bottom}"/>${groups}${xLabels}${legend}</svg></div>`;
+ return `<div class="data-line-wrap"><svg class="data-line-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${htmlSeguro(title)}">${grids}<line class="data-line-axis" x1="${left}" y1="${bottom}" x2="${right}" y2="${bottom}"/>${groups}${xLabels}${legend}</svg><p class="data-line-hint">Desliza horizontalmente para ver todos los meses.</p></div>`;
 }
 const movimientoReducido=matchMedia("(prefers-reduced-motion: reduce)");
 const animacionesNumero=new WeakMap();
@@ -272,6 +272,7 @@ function paginaDelito(categoryId,crimeId,selectedYear){
    values.map(item=>monthsData[item.month-1]||item.month),
    "Cantidad de delitos por mes"
   );
+  months.classList.remove("data-revealed");
   revelarAnalisis(months);
  });
 }
